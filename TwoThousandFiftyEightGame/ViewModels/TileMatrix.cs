@@ -159,6 +159,19 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 Array[randRow, randColumn].Value = 2;
         }
 
+        public bool ThereIs2048()
+        {
+            for (int i = 0; i < Array.GetLength(0); i++)
+            {
+                for (int j = 0; j < Array.GetLength(1); j++)
+                {
+                    if (Array[i, j].Value == 2048)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         private Tile[,] CopyArray(Tile[,] toArray)
         {
             for (int i = 0; i < Array.GetLength(0); i++)

@@ -109,7 +109,13 @@ namespace TwoThousandFiftyEightGame
         {
             if (!Matrix.IsMoving())
             {
-                MessageBox.Show("You lost");
+                MessageBox.Show("You lost!");
+                UpdateGame();
+            }
+
+            else if (Matrix.ThereIs2048())
+            {
+                MessageBox.Show("You won!");
                 UpdateGame();
             }
         }

@@ -1,0 +1,69 @@
+﻿<Window x:Class="TwoThousandFiftyEightGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TwoThousandFiftyEightGame"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="440" Width="330" Background="AntiqueWhite">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <!-- Statistic Grid-->
+        <Grid Grid.Row="0">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Content="Score" Style="{StaticResource StyleLabelScore}"/>
+            <TextBlock x:Name="ScoreTextBox" Text="{Binding CurrentScore}" Grid.Column="0"  Style="{StaticResource StyleTextBlock}"/>
+            
+            <Label Grid.Column="1" Content="High Score"  Style="{StaticResource StyleLabelScore}"/>
+            <TextBlock x:Name="HighScoreTextBox" Text="{Binding HighScore}" Grid.Column="1" Style="{StaticResource StyleTextBlock}"/>
+
+        </Grid>
+        
+        <!-- Game Field -->
+        <Grid x:Name="GameField" Grid.Row="1">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="0" Grid.Column="1" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="0" Grid.Column="2" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="0" Grid.Column="3" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="1" Grid.Column="3" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="2" Grid.Column="2" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="2" Grid.Column="3" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="3" Grid.Column="1" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+            <Label Grid.Row="3" Grid.Column="3" Content="{Binding Value}" Margin="8" Style="{StaticResource StyleTileLabelEmpty}"/>
+
+        </Grid>
+        
+    </Grid>
+</Window>

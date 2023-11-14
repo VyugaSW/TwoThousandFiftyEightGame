@@ -74,7 +74,7 @@ namespace TwoThousandFiftyEightGame
             }
 
             Matrix.GenerateNewTile();
-            //TileStyleChanger.ChangeStyle();
+            TileStyleChanger.ChangeStyle();
         }
 
         public void InitializingDispatcherTimer()
@@ -98,7 +98,9 @@ namespace TwoThousandFiftyEightGame
 
                 ScoreStatistic.UpdateScore(2);
                 ScoreStatistic.CompareScore();
-                //TileStyleChanger.ChangeStyle();
+
+                TileStyleChanger.ChangeStyle();
+
                 _flagAllow = false;
             }
         }

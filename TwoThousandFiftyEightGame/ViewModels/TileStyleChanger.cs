@@ -15,7 +15,7 @@ namespace TwoThousandFiftyEightGame.ViewModels
 
         public TileStyleChanger(Grid grid)
         {
-            _styles = new ResourceDictionary();
+            _styles = Application.Current.Resources;
             _tiles = new List<Label>();
             Initializing(grid);
         }

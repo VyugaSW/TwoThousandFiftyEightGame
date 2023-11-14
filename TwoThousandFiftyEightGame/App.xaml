@@ -67,27 +67,49 @@
             </Setter>
         </Style>
 
-        <Style x:Key="StyleTileLabel_2" TargetType="Label" BasedOn="{StaticResource TextLabel}">
-            
+        <Style x:Key="StyleTileLabel_2" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
             <Setter Property="Background" Value="BlanchedAlmond"/>
-            <Setter Property="Template">
-
-                <Setter.Value>
-
-                    <ControlTemplate TargetType="Label">
-
-                        <Border Background="{TemplateBinding Background}"
-                            Style="{StaticResource StyleBorder}">
-
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="8"/>
-                        </Border>
-
-                    </ControlTemplate>
-
-                </Setter.Value>
-            </Setter>
         </Style>
 
+        <Style x:Key="StyleTileLabel_4" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="LightCoral"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_8" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="IndianRed"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_16" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="Coral"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_32" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="Orange"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_64" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="DarkOrange"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_128" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="OrangeRed"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_256" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="Red"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_512" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="DarkRed"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_1024" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="DarkGoldenrod"/>
+        </Style>
+        
+        <Style x:Key="StyleTileLabel_2048" TargetType="Label" BasedOn="{StaticResource StyleTileLabelEmpty}">
+            <Setter Property="Background" Value="DarkTurquoise"/>
+        </Style>
 
         <Style x:Key="StyleTextBlock" TargetType="TextBlock">
             <Setter Property="Control.FontFamily" Value="Arial"/>

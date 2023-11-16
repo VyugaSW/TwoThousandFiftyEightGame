@@ -7,16 +7,30 @@ using System.Windows.Input;
 using System.Resources;
 
 using TwoThousandFiftyEightGame.Models;
+using TwoThousandFiftyEightGame.Background_Settings;
 
 namespace TwoThousandFiftyEightGame.ViewModels
 {
+
+    public delegate void MoveTileDelegate();
+    
+
+
+
     public class TileMatrix
     {
         public Tile[,] Array { get; set; }
 
+        private bool _moveFlagUp = true;
+        private bool _moveFlagDown = true;
+        private bool _moveFlagLeft = true;
+        private bool _moveFlagRight = true;
+
+        private MoveTileDelegate _moveTileDelegate;
+
         public TileMatrix()
         {
-            Array = new Tile[4, 4];
+            Array = new Tile[SettingsBackground.MatrixRows, SettingsBackground.MatrixColumns];
             InitializingArray();
         }
 
@@ -24,6 +38,15 @@ namespace TwoThousandFiftyEightGame.ViewModels
         {
             get => Array[row,column];
             set => Array[row,column] = value;
+        }
+
+        private void InitializingArray()
+        {
+            for(int row = 0; row < Array.GetLength(0); row++)
+            {
+                for (int column = 0; column < Array.GetLength(1); column++)
+                    Array[row, column] = new Tile(row, column, null);
+            }
         }
 
         private int? NullToZero(int? value)
@@ -36,19 +59,9 @@ namespace TwoThousandFiftyEightGame.ViewModels
 
             return value;
         }
-
-        private void InitializingArray()
-        {
-            for(int row = 0; row < Array.GetLength(0); row++)
-            {
-                for (int column = 0; column < Array.GetLength(1); column++)
-                    Array[row, column] = new Tile(row, column, null);
-            }
-        }
-
         private bool CollisionTiles(Tile tile1, Tile tile2) 
         {
-            if (tile1.Value != tile2.Value && (tile1.Value != null && tile2.Value != null))
+            if (tile1.Value != tile2.Value && tile1.Value != null && tile2.Value != null)
                 return false;
 
             tile1.Value = NullToZero(tile1.Value);
@@ -61,19 +74,18 @@ namespace TwoThousandFiftyEightGame.ViewModels
 
             return true;
         }
-
         private void MoveUp()
         {
             for(int row = Array.GetLength(0) - 1; row > -1; row--)
             {
                 for(int column = Array.GetLength(1) - 1; column > -1; column--)
                 {
-                    if(row - 1 > -1)
-                        CollisionTiles(Array[row - 1, column], Array[row, column]);
+                    if (row - 1 > -1)
+                        if (CollisionTiles(Array[row - 1, column], Array[row, column]))
+                            _moveFlagUp = true;
                 }
             }
         }
-
         private void MoveDown()
         {
             for (int row = 0; row < Array.GetLength(0); row++)
@@ -81,12 +93,12 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 for (int column = 0; column < Array.GetLength(1); column++)
                 {
                     if (row + 1 < Array.GetLength(0))                  
-                         CollisionTiles(Array[row + 1, column], Array[row, column]);
+                         if(CollisionTiles(Array[row + 1, column], Array[row, column]))
+                            _moveFlagDown = true;
 
                 }
             }
         }
-
         private void MoveRight()
         {
             for (int row = 0; row < Array.GetLength(0); row++)
@@ -94,12 +106,12 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 for (int column = 0; column < Array.GetLength(1); column++)
                 {
                     if (column + 1 < Array.GetLength(1))
-                        CollisionTiles(Array[row, column + 1], Array[row, column]);
+                        if(CollisionTiles(Array[row, column + 1], Array[row, column]))
+                            _moveFlagRight = true;
 
                 }
             }
         }
-
         private void MoveLeft()
         {
             for (int row = Array.GetLength(0) - 1; row > -1; row--)
@@ -107,35 +119,43 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 for (int column = Array.GetLength(1) - 1; column > -1; column--)
                 {
                     if (column - 1 > -1)
-                        CollisionTiles(Array[row, column - 1], Array[row, column]);
+                        if(CollisionTiles(Array[row, column - 1], Array[row, column]))
+                            _moveFlagLeft = true;
 
                 }
             }
         }
-
         public bool Move(Key key)
         {
             switch (key)
             {
                 case Key.W:
                 case Key.Up:
-                    MoveUp();
-                    return true;
+                    if(_moveFlagUp)
+                        _moveTileDelegate = MoveUp;
+                    break;
                 case Key.S:
                 case Key.Down:
-                    MoveDown();
-                    return true;
+                    if (_moveFlagDown)
+                        _moveTileDelegate = MoveDown;
+                    break;
                 case Key.A:
                 case Key.Left:
-                    MoveLeft();
-                    return true;
+                    if (_moveFlagLeft)
+                        _moveTileDelegate = MoveLeft;
+                    break;
                 case Key.D:
                 case Key.Right:
-                    MoveRight();
-                    return true;
+                    if (_moveFlagRight)
+                        _moveTileDelegate = MoveRight;
+                    break;
                 default:
                     return false;
             }
+
+            for(int i = 0; i < SettingsBackground.RepeatsForFullStep; i++)
+                _moveTileDelegate();
+            return true;
         }
 
         public void GenerateNewTile()
@@ -172,33 +192,10 @@ namespace TwoThousandFiftyEightGame.ViewModels
             return false;
         }
 
-        private Tile[,] CopyArray(Tile[,] toArray)
-        {
-            for (int i = 0; i < Array.GetLength(0); i++)
-            {
-                for (int j = 0; j < Array.GetLength(1); j++)
-                {
-                    toArray[i, j].Value = Array[i, j].Value;
-                    toArray[i, j].Column = Array[i, j].Column;
-                    toArray[i, j].Row = Array[i, j].Row;
-                }
-            }
-            return toArray;
-        }
-
         public bool IsMoving()
         {
-            TileMatrix tempTileMatrix = new TileMatrix();
-            tempTileMatrix.Array = CopyArray(tempTileMatrix.Array);
-
-            tempTileMatrix.Move(Key.Up);
-            tempTileMatrix.Move(Key.Down);
-            tempTileMatrix.Move(Key.Left);
-            tempTileMatrix.Move(Key.Right);
-
-            if (tempTileMatrix.Array == Array)
+            if (!_moveFlagDown && !_moveFlagLeft && !_moveFlagRight && !_moveFlagUp)
                 return false;
-
             return true;
 
         }

@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 
 using TwoThousandFiftyEightGame.Models;
 using TwoThousandFiftyEightGame.ViewModels;
+using TwoThousandFiftyEightGame.Background_Settings;
 
 namespace TwoThousandFiftyEightGame
 {
@@ -38,18 +39,15 @@ namespace TwoThousandFiftyEightGame
         public MainWindow()
         {
             InitializeComponent();
-            Matrix = new TileMatrix();
+
             TileStyleChanger = new TileStyleChanger(GameField);
             ScoreStatistic = new ScoreStatistic();
 
-            _dispatcherTimer = new DispatcherTimer();
-            
+            UpdateGame();
+
+            PreviewKeyDown += Window_PreviewKeyDown;
             ScoreTextBox.DataContext = ScoreStatistic.Statistic;
             HighScoreTextBox.DataContext = ScoreStatistic.Statistic;
-            PreviewKeyDown += Window_PreviewKeyDown;
-
-            InitializingTiles();
-            InitializingDispatcherTimer();
 
         }
 
@@ -79,7 +77,7 @@ namespace TwoThousandFiftyEightGame
 
         public void InitializingDispatcherTimer()
         {
-            _dispatcherTimer.Interval = TimeSpan.FromSeconds(0.2);
+            _dispatcherTimer.Interval = TimeSpan.FromSeconds(SettingsBackground.WaitTimeForNewStep);
             _dispatcherTimer.Tick += (s, args) => _flagAllow = true;
             _dispatcherTimer.Start();
         }
@@ -124,6 +122,11 @@ namespace TwoThousandFiftyEightGame
         {
             Matrix = new TileMatrix();
             ScoreStatistic.ClearScore();
+
+            _dispatcherTimer = new DispatcherTimer();
+
+            InitializingTiles();
+            InitializingDispatcherTimer();
         }
 
     }

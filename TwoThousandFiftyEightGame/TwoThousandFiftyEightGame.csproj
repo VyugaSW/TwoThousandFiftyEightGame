@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Background Settings\SettingsBackground.cs" />
     <Compile Include="ViewModels\ScoreStatistic.cs" />
     <Compile Include="ViewModels\TileMatrix.cs" />
     <Compile Include="ViewModels\TileStyleChanger.cs" />

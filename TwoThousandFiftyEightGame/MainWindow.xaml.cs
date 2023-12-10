@@ -92,7 +92,9 @@ namespace TwoThousandFiftyEightGame
                 IsEnd();
 
                 if (_countMoves % 2 == 0)
+                {
                     Matrix.GenerateNewTile();
+                }
 
                 ScoreStatistic.UpdateScore(2);
                 ScoreStatistic.CompareScore();
@@ -108,7 +110,7 @@ namespace TwoThousandFiftyEightGame
             if (!Matrix.IsMoving())
             {
                 MessageBox.Show("You lost!");
-                UpdateGame();
+               UpdateGame();
             }
 
             else if (Matrix.ThereIs2048())

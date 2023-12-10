@@ -81,8 +81,12 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 for(int column = Array.GetLength(1) - 1; column > -1; column--)
                 {
                     if (row - 1 > -1)
-                        if (CollisionTiles(Array[row - 1, column], Array[row, column]))
+                    {
+                        if (CollisionTiles(Array[row - 1, column], Array[row, column]) || IsNullInArray())
                             _moveFlagUp = true;
+                        else
+                            _moveFlagUp = false;
+                    }
                 }
             }
         }
@@ -92,9 +96,13 @@ namespace TwoThousandFiftyEightGame.ViewModels
             {
                 for (int column = 0; column < Array.GetLength(1); column++)
                 {
-                    if (row + 1 < Array.GetLength(0))                  
-                         if(CollisionTiles(Array[row + 1, column], Array[row, column]))
+                    if (row + 1 < Array.GetLength(0))
+                    {
+                        if (CollisionTiles(Array[row + 1, column], Array[row, column]) || IsNullInArray())
                             _moveFlagDown = true;
+                        else
+                            _moveFlagDown = false;
+                    }
 
                 }
             }
@@ -106,8 +114,12 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 for (int column = 0; column < Array.GetLength(1); column++)
                 {
                     if (column + 1 < Array.GetLength(1))
-                        if(CollisionTiles(Array[row, column + 1], Array[row, column]))
+                    {
+                        if (CollisionTiles(Array[row, column + 1], Array[row, column]) || IsNullInArray())
                             _moveFlagRight = true;
+                        else
+                            _moveFlagRight = false;
+                    }
 
                 }
             }
@@ -119,8 +131,12 @@ namespace TwoThousandFiftyEightGame.ViewModels
                 for (int column = Array.GetLength(1) - 1; column > -1; column--)
                 {
                     if (column - 1 > -1)
-                        if(CollisionTiles(Array[row, column - 1], Array[row, column]))
+                    {
+                        if (CollisionTiles(Array[row, column - 1], Array[row, column]) || IsNullInArray())
                             _moveFlagLeft = true;
+                        else
+                            _moveFlagLeft = false;
+                    }
 
                 }
             }
@@ -153,8 +169,12 @@ namespace TwoThousandFiftyEightGame.ViewModels
                     return false;
             }
 
-            for(int i = 0; i < SettingsBackground.RepeatsForFullStep; i++)
-                _moveTileDelegate();
+            if (_moveTileDelegate != null)
+            {
+                for (int i = 0; i < SettingsBackground.RepeatsForFullStep; i++)
+                    _moveTileDelegate();
+                _moveTileDelegate = null;
+            }
             return true;
         }
 
@@ -192,9 +212,21 @@ namespace TwoThousandFiftyEightGame.ViewModels
             return false;
         }
 
+        private bool IsNullInArray()
+        {
+            for (int row = 0; row < Array.GetLength(0); row++)
+            {
+                for (int column = 0; column < Array.GetLength(1); column++)
+                {
+                    if (Array[row,column].Value == null)
+                        return true;
+                }
+            }
+            return false;
+        }
         public bool IsMoving()
         {
-            if (!_moveFlagDown && !_moveFlagLeft && !_moveFlagRight && !_moveFlagUp)
+            if (!_moveFlagDown && !_moveFlagLeft && !_moveFlagRight && !_moveFlagUp && IsNullInArray())
                 return false;
             return true;
 

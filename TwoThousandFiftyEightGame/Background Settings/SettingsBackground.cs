@@ -12,6 +12,6 @@ namespace TwoThousandFiftyEightGame.Background_Settings
         public static readonly int MatrixColumns = 4;
         public static readonly int RepeatsForFullStep = 4;
 
-        public static readonly double WaitTimeForNewStep = 0.1;
+        public static readonly double WaitTimeForNewStep = 0.15;
     }
 }
